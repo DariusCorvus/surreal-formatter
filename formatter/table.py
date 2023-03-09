@@ -6,9 +6,6 @@ def _(*args):
 
 
 class DefineTableLexer(Lexer):
-    COMMENT = r"(--.*)|(//.*)|(#.*)"
-    STRING = r"(\".*\")|('.*')"
-
     BEFORE_TYPE = {
         "SCHEMA": " \n\t",
         "PERMISSIONS": "\n\t",
@@ -34,6 +31,10 @@ class DefineTableLexer(Lexer):
     ignore_newline = r"\n+"
     ignore_whitespace = r" "
     ignore_tab = r"\t"
+
+    @_(r"(\".*\")|('.*')")
+    def STRING(self, token):
+        return token
 
     @_(r"[dD][eE][fF][iI][nN][eE] [tT][aA][bB][lL][eE]")
     def DEFINE(self, token):
@@ -133,9 +134,8 @@ class DefineTableLexer(Lexer):
     def error(self, t):
         print("Illegal character '%s'" % t.value[0])
         self.index += 1
-        
+
     tokens = {
-        COMMENT,
         STRING,
         DEFINE,
         PERMISSIONS,
@@ -155,19 +155,11 @@ class DefineTableLexer(Lexer):
     @staticmethod
     def parse(text):
         tokens = list(DefineTableLexer().tokenize(text))
+        formatted: str = ""
         for token in tokens:
-            print(
-                DefineTableLexer.BEFORE_TYPE.get(token.type, ""),
-                DefineTableLexer.BEFORE_VALUE.get(token.value.upper(), ""),
-                end="",
-                sep="",
-            )
-
-            print(token.value, end="")
-
-            print(
-                DefineTableLexer.AFTER_TYPE.get(token.type, ""),
-                DefineTableLexer.AFTER_VALUE.get(token.value.upper(), ""),
-                end="",
-                sep="",
-            )
+            formatted += DefineTableLexer.BEFORE_TYPE.get(token.type, "")
+            formatted += DefineTableLexer.BEFORE_VALUE.get(token.value.upper(), "")
+            formatted += token.value
+            formatted += DefineTableLexer.AFTER_TYPE.get(token.type, "")
+            formatted += DefineTableLexer.AFTER_VALUE.get(token.value.upper(), "")
+        return formatted
