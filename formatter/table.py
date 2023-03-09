@@ -68,7 +68,7 @@ class DefineTableLexer(Lexer):
     def WHERE(self, token):
         return token
 
-    @_(r"[a-zA-Z]+")
+    @_(r"[_a-zA-Z0-9]+")
     def TABLE(self, token):
         return token
 
