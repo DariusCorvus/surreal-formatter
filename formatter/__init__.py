@@ -1,10 +1,26 @@
 from .query import QueryLexer
 from .table import DefineTableLexer
 
-PARSER = {"COMMENT": print, "SELECT": print, "DEFINE_TABLE": DefineTableLexer.parse}
+
+def _parse_default(text: str) -> str:
+    return text + "\n"
+
+
+def _none(*args) -> str:
+    args = args
+    return ""
+
+
+PARSER = {
+    "COMMENT": _parse_default,
+    "SELECT": _parse_default,
+    "DEFINE_TABLE": DefineTableLexer.parse,
+}
 
 
 def parse(text: str) -> str:
-  querys = list(QueryLexer().tokenize(text))
-  for query in querys:
-    PARSER.get(query.type, lambda _: ...)(query.value)
+    querys = list(QueryLexer().tokenize(text))
+    result: str = ""
+    for query in querys:
+        result += PARSER.get(query.type, _none)(query.value)
+    return result
