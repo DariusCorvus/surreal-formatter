@@ -1,5 +1,6 @@
+from .field import FieldLexer
 from .query import QueryLexer
-from .table import DefineTableLexer
+from .table import TableLexer
 
 
 def _parse_default(text: str) -> str:
@@ -14,7 +15,8 @@ def _none(*args) -> str:
 PARSER = {
     "COMMENT": _parse_default,
     "SELECT": _parse_default,
-    "DEFINE_TABLE": DefineTableLexer.parse,
+    "DEFINE_TABLE": TableLexer.parse,
+    "DEFINE_FIELD": FieldLexer.parse,
 }
 
 
