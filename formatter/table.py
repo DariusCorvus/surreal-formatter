@@ -5,7 +5,7 @@ def _(*args):
     return _
 
 
-class DefineTableLexer(Lexer):
+class TableLexer(Lexer):
     BEFORE_TYPE = {
         "SCHEMA": " \n\t",
         "PERMISSIONS": "\n\t",
@@ -152,14 +152,14 @@ class DefineTableLexer(Lexer):
         EOQ,
     }
 
-    @staticmethod
-    def parse(text):
-        tokens = list(DefineTableLexer().tokenize(text))
+    @classmethod
+    def parse(cls, text):
+        tokens = list(TableLexer().tokenize(text))
         formatted: str = ""
         for token in tokens:
-            formatted += DefineTableLexer.BEFORE_TYPE.get(token.type, "")
-            formatted += DefineTableLexer.BEFORE_VALUE.get(token.value.upper(), "")
+            formatted += cls.BEFORE_TYPE.get(token.type, "")
+            formatted += cls.BEFORE_VALUE.get(token.value.upper(), "")
             formatted += token.value
-            formatted += DefineTableLexer.AFTER_TYPE.get(token.type, "")
-            formatted += DefineTableLexer.AFTER_VALUE.get(token.value.upper(), "")
+            formatted += cls.AFTER_TYPE.get(token.type, "")
+            formatted += cls.AFTER_VALUE.get(token.value.upper(), "")
         return formatted
