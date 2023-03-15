@@ -154,7 +154,7 @@ class TableLexer(Lexer):
 
     @classmethod
     def parse(cls, text):
-        tokens = list(TableLexer().tokenize(text))
+        tokens = list(cls().tokenize(text))
         formatted: str = ""
         for token in tokens:
             formatted += cls.BEFORE_TYPE.get(token.type, "")

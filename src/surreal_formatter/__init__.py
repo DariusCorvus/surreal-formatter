@@ -1,5 +1,6 @@
 from .field import FieldLexer
 from .query import QueryLexer
+from .select import SelectLexer
 from .table import TableLexer
 
 
@@ -17,6 +18,7 @@ PARSER = {
     "SELECT": _parse_default,
     "DEFINE_TABLE": TableLexer.parse,
     "DEFINE_FIELD": FieldLexer.parse,
+    "SELECT": SelectLexer.parse,
 }
 
 

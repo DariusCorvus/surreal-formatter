@@ -278,7 +278,7 @@ class FieldLexer(Lexer):
 
     @classmethod
     def parse(cls, text: str) -> str:
-        tokens = list(FieldLexer().tokenize(text))
+        tokens = list(cls().tokenize(text))
         formatted: str = ""
 
         for token in tokens:
