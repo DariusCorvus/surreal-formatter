@@ -47,3 +47,13 @@ SELECT
   FROM user
 ;
 ```
+
+## Contribute
+Feel free to contribute and open a issue or pull request.
+
+## Development
+The whole project builds on the amazing python package `sly`
+- [SLY](https://sly.readthedocs.io/en/latest/sly.html)
+
+to make it a cli, `click` is used, another amazing python package
+- [Click](https://click.palletsprojects.com/en/8.1.x/)
