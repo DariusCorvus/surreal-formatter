@@ -1,0 +1,4 @@
+SELECT * FROM user;
+SELECT name, age FROM user WHERE age >= 18;
+SELECT name, age, email FROM user WHERE age >= 18 AND email CONTAINS '@';
+SELECT name, age, email FROM user WHERE age >= 18 AND email CONTAINS '@' OR verified = true;
