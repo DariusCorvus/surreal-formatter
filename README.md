@@ -38,8 +38,7 @@ Options:
 
 The default in and output of `surreal-formatter` are `stdin` and `stdout` to give us the pipe functionality
 ```bash
-$ echo 'SELECT * FROM user;' | 
-surreal-formatter --tabsize 2
+$ echo 'SELECT * FROM user;' | surreal-formatter --tabsize 2
 ```
 ```sql
 SELECT
