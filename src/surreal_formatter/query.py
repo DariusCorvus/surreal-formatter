@@ -1,12 +1,11 @@
 from sly import Lexer
 
-
-def _(*args):
-    return _
+from surreal_formatter import const
+from surreal_formatter.helper import _
 
 
 class QueryLexer(Lexer):
-    @_(r"/\*\n*.*\n*\*/", "--.*", "//.*", "#.*")
+    @_(*const.COMMENT)
     def COMMENT(self, token):
         return token
 

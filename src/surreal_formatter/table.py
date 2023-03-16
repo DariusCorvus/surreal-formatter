@@ -1,8 +1,8 @@
 from sly import Lexer
 
+from surreal_formatter.helper import _
 
-def _(*args):
-    return _
+from . import const
 
 
 class TableLexer(Lexer):
@@ -32,47 +32,11 @@ class TableLexer(Lexer):
     ignore_whitespace = r" "
     ignore_tab = r"\t"
 
-    @_(r"(\".*\")|('.*')")
+    @_(*const.STRING)
     def STRING(self, token):
         return token
 
-    @_(
-        r"!=",
-        r"==",
-        r"\?=",
-        r"\*=",
-        r"=",
-        r"!~",
-        r"\?~",
-        r"\*~",
-        r"~",
-        r"<=",
-        r"<",
-        r">=",
-        r">",
-        r"\+",
-        r"-",
-        r"\*",
-        r"/",
-        r"&&",
-        r"\|\|",
-        r"AND",
-        r"OR",
-        r"IS",
-        r"IS NOT",
-        r"(CONTAINS|∋)",
-        r"(CONTAINSNOT|∌)",
-        r"(CONTAINSALL|⊇)",
-        r"(CONTAINSANY|⊃)",
-        r"(CONTAINSNONE|⊅)",
-        r"(INSIDE|∈)",
-        r"(NOTINSIDE|∉)",
-        r"(ALLINSIDE|⊆)",
-        r"(ANYINSIDE|⊂)",
-        r"(NONEINSIDE|⊄)",
-        r"OUTSIDE",
-        r"INTERSECTS",
-    )
+    @_(*const.OPERATORS)
     def OPERATOR(self, token):
         return token
 
@@ -84,47 +48,43 @@ class TableLexer(Lexer):
     def SCHEMA(self, token):
         return token
 
-    @_(r"[pP][eE][rR][mM][iI][sS][sS][iI][oO][nN][sS]")
+    @_(*const.PERMISSIONS)
     def PERMISSIONS(self, token):
         return token
 
-    @_(r"[fF][oO][rR]")
+    @_(*const.FOR)
     def FOR(self, token):
         return token
 
-    @_(
-        r"([sS][eE][lL][eE][cC][tT]|[cC][rR][eE][aA][tT][eE]|[uU][pP][dD][aA][tT][eE]|[dD][eE][lL][eE][tT][eE]),"
-    )
+    @_(*const.STATEMENT_WITH_SEPERATORS)
     def STATEMENT_WITH_SEPERATOR(self, token):
         return token
 
-    @_(
-        r"([sS][eE][lL][eE][cC][tT]|[cC][rR][eE][aA][tT][eE]|[uU][pP][dD][aA][tT][eE]|[dD][eE][lL][eE][tT][eE])"
-    )
+    @_(*const.STATEMENTS)
     def STATEMENT(self, token):
         return token
 
-    @_(r"[wW][hH][eE][rR][eE]")
+    @_(*const.WHERE)
     def WHERE(self, token):
         return token
 
-    @_(r"[_a-zA-Z0-9]+")
+    @_(*const.TABLE)
     def TABLE(self, token):
         return token
 
-    @_(r",")
+    @_(*const.SEPERATOR)
     def SEPERATOR(self, token):
         return token
 
-    @_(r"\.")
+    @_(*const.DOT)
     def DOT(self, token):
         return token
 
-    @_(r"\$[_0-9a-zA-Z]+")
+    @_(*const.PARAMETER)
     def PARAMETER(self, token):
         return token
 
-    @_(r";")
+    @_(*const.EOQ)
     def EOQ(self, token):
         return token
 
