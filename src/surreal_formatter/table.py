@@ -36,6 +36,46 @@ class TableLexer(Lexer):
     def STRING(self, token):
         return token
 
+    @_(
+        r"!=",
+        r"==",
+        r"\?=",
+        r"\*=",
+        r"=",
+        r"!~",
+        r"\?~",
+        r"\*~",
+        r"~",
+        r"<=",
+        r"<",
+        r">=",
+        r">",
+        r"\+",
+        r"-",
+        r"\*",
+        r"/",
+        r"&&",
+        r"\|\|",
+        r"AND",
+        r"OR",
+        r"IS",
+        r"IS NOT",
+        r"(CONTAINS|∋)",
+        r"(CONTAINSNOT|∌)",
+        r"(CONTAINSALL|⊇)",
+        r"(CONTAINSANY|⊃)",
+        r"(CONTAINSNONE|⊅)",
+        r"(INSIDE|∈)",
+        r"(NOTINSIDE|∉)",
+        r"(ALLINSIDE|⊆)",
+        r"(ANYINSIDE|⊂)",
+        r"(NONEINSIDE|⊄)",
+        r"OUTSIDE",
+        r"INTERSECTS",
+    )
+    def OPERATOR(self, token):
+        return token
+
     @_(r"[dD][eE][fF][iI][nN][eE] [tT][aA][bB][lL][eE]")
     def DEFINE(self, token):
         return token
@@ -70,46 +110,6 @@ class TableLexer(Lexer):
 
     @_(r"[_a-zA-Z0-9]+")
     def TABLE(self, token):
-        return token
-
-    @_(
-        r"=",
-        r"!=",
-        r"==",
-        r"\?=",
-        r"\*=",
-        r"~",
-        r"!~",
-        r"\?~",
-        r"\*~",
-        r"<",
-        r"<=",
-        r">",
-        r">=",
-        r"\+",
-        r"-",
-        r"\*",
-        r"/",
-        r"&&",
-        r"\|\|",
-        r"AND",
-        r"OR",
-        r"IS",
-        r"IS NOT",
-        r"(CONTAINS|∋)",
-        r"(CONTAINSNOT|∌)",
-        r"(CONTAINSALL|⊇)",
-        r"(CONTAINSANY|⊃)",
-        r"(CONTAINSNONE|⊅)",
-        r"(INSIDE|∈)",
-        r"(NOTINSIDE|∉)",
-        r"(ALLINSIDE|⊆)",
-        r"(ANYINSIDE|⊂)",
-        r"(NONEINSIDE|⊄)",
-        r"OUTSIDE",
-        r"INTERSECTS",
-    )
-    def OPERATOR(self, token):
         return token
 
     @_(r",")
