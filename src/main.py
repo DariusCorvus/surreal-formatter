@@ -1,12 +1,10 @@
 import sys
-import textwrap
 from io import TextIOWrapper
 
 import click
 
-# from config import Config
-# import config
 from config import Config
+from surreal_formatter import parse
 
 config = Config()
 
@@ -16,12 +14,8 @@ config = Config()
 @click.argument("output", type=click.File("w"), default=sys.stdout)
 @click.option("--tabsize", type=int, default=4)
 def cli(input: TextIOWrapper, output: TextIOWrapper, tabsize: int):
-    from surreal_formatter import parse
-
     config.tabsize = tabsize
     text = input.read()
-    text = textwrap.dedent(text)
-    text = text.replace("\n", "")
     text = parse(text)
     text = text.expandtabs(tabsize)
     output.write(text)

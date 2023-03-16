@@ -9,11 +9,11 @@ class QueryLexer(Lexer):
     def COMMENT(self, token):
         return token
 
-    @_(r"[dD][eE][fF][iI][nN][eE] [tT][aA][bB][lL][eE].+;{0,1}")
+    @_(r"[dD][eE][fF][iI][nN][eE] [tT][aA][bB][lL][eE]((.|\n)+);{0,1}")
     def DEFINE_TABLE(self, token):
         return token
 
-    @_(r"[dD][eE][fF][iI][nN][eE] [fF][iI][eE][lL][dD].+;{0,1}")
+    @_(r"[dD][eE][fF][iI][nN][eE] [fF][iI][eE][lL][dD]((.|\n)+);{0,1}")
     def DEFINE_FIELD(self, token):
         return token
 
