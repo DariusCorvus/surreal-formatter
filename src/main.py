@@ -1,4 +1,5 @@
 import sys
+import textwrap
 from io import TextIOWrapper
 
 import click
@@ -19,6 +20,8 @@ def cli(input: TextIOWrapper, output: TextIOWrapper, tabsize: int):
 
     config.tabsize = tabsize
     text = input.read()
+    text = textwrap.dedent(text)
+    text = text.replace("\n", "")
     text = parse(text)
     text = text.expandtabs(tabsize)
     output.write(text)
